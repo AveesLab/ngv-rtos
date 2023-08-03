@@ -1,0 +1,156 @@
+ CPU test_application {
+
+  OS EE {
+    EE_OPT = "OSEE_DEBUG";
+    EE_OPT = "OSEE_ASSERT";
+    EE_OPT = "OS_EE_APPL_BUILD_DEBUG";
+    EE_OPT = "OS_EE_BUILD_DEBUG";
+    EE_OPT = "EE_BUILD_SINGLE_ELF";
+ 	CFLAGS = "-Wno-switch -Wno-implicit-function-declaration -Wno-cast-align -Wno-missing-prototypes  -Wno-missing-field-initializers -Wno-double-promotion -Wno-strict-prototypes -Wno-unused-parameter -Wno-missing-declarations";
+	
+    CPU_DATA = TRICORE {
+            ID = 0x0;
+            CPU_CLOCK = 200.0;
+            MULTI_STACK = TRUE;
+        };
+
+    
+
+    MCU_DATA = TC27X {
+      DERIVATIVE = "tc275tf";
+      REVISION = "DC";
+    };
+
+    
+	
+    KERNEL_TYPE = OSEK {
+      CLASS = ECC2;
+    };
+
+  };
+  
+
+  APPDATA tricore_mc {
+  	APP_SRC="illd/src/IfxAsclin_Asc.c";
+  	APP_SRC="illd/src/IfxStm.c";
+  	APP_SRC="illd/src/IfxStm_cfg.c";
+  	APP_SRC="illd/src/IfxStdIf_DPipe.c";
+  	APP_SRC="illd/src/Ifx_Fifo.c";
+  	APP_SRC="illd/src/Ifx_CircularBuffer.c";
+  	APP_SRC="illd/src/IfxAsclin_PinMap.c";
+  	APP_SRC="illd/src/IfxScuWdt.c";
+  	APP_SRC="illd/src/IfxAsclin_cfg.c";
+  	APP_SRC="illd/src/IfxScu_cfg.c";
+  	APP_SRC="illd/src/Bsp.c";
+  	APP_SRC="illd/src/IfxScuCcu.c";
+  	APP_SRC="illd/src/IfxScu_PinMap.c";
+  	APP_SRC="illd/src/IfxPort.c";
+  	APP_SRC="illd/src/IfxSrc.c";
+  	APP_SRC="illd/src/IfxSrc_cfg.c";
+  	APP_SRC="illd/src/IfxAsclin.c";
+  	APP_SRC="illd/src/IfxPort_cfg.c";
+  	APP_SRC="illd/src/CompilerGnuc.c";
+  	APP_SRC="illd/src/IfxCpu_Irq.c";
+  	APP_SRC="illd/src/IfxCpu.c";
+  	APP_SRC="illd/src/IfxAsclin.c";
+  	APP_SRC="illd/src/IfxCpu_cfg.c";
+  	APP_SRC="illd/src/IfxScuEru.c";
+  	APP_SRC="illd/src/IfxVadc_Adc.c";
+	APP_SRC="illd/Libraries/iLLD/TC27D/Tricore/_Impl/IfxVadc_cfg.c";
+ 	APP_SRC="illd/Libraries/iLLD/TC27D/Tricore/Vadc/std/IfxVadc.c";
+
+ 	 	
+
+
+
+
+  	APP_SRC="bsw.c";
+    APP_SRC="master.c";
+  };
+
+    
+    TASK Task_2s {
+        PRIORITY = 3;       
+        STACK = PRIVATE {
+            SIZE = 1024;
+        };
+        SCHEDULE = FULL;
+        AUTOSTART = FALSE;
+        ACTIVATION = 1;
+    };
+    
+    TASK Task_4s {
+        PRIORITY = 2;       
+        STACK = PRIVATE {
+            SIZE = 1024;
+        };
+        SCHEDULE = FULL;
+        AUTOSTART = FALSE;
+        ACTIVATION = 1;
+    };
+        
+    TASK Task_8s {
+        PRIORITY = 1;       
+        STACK = PRIVATE {
+            SIZE = 1024;
+        };
+        SCHEDULE = FULL;
+        AUTOSTART = FALSE;
+        ACTIVATION = 1;
+    };
+    
+    COUNTER mycounter {
+        MINCYCLE = 1;
+        MAXALLOWEDVALUE = 65535;
+        TICKSPERBASE = 1;
+    };
+    
+    SCHEDULETABLE SchedTab1 {
+        COUNTER = mycounter;
+        DURATION = 8;
+        REPEATING = TRUE;
+        AUTOSTART = TRUE {
+            START_VALUE = 5;
+        };
+        EXPIRE_POINT = ACTION {
+            EXPIRE_VALUE = 0;
+            ACTION = ACTIVATETASK { TASK = Task_2s; };
+            ACTION = ACTIVATETASK { TASK = Task_4s; };
+            ACTION = ACTIVATETASK { TASK = Task_8s; };
+        };
+        EXPIRE_POINT = ACTION {
+            EXPIRE_VALUE = 2;
+            ACTION = ACTIVATETASK { TASK = Task_2s; };
+        };
+        EXPIRE_POINT = ACTION {
+            EXPIRE_VALUE = 4;      
+            ACTION = ACTIVATETASK { TASK = Task_2s; };
+            ACTION = ACTIVATETASK { TASK = Task_4s; };
+        };
+        EXPIRE_POINT = ACTION {
+            EXPIRE_VALUE = 6;
+            ACTION = ACTIVATETASK { TASK = Task_2s; };
+        };
+    };
+   
+ 
+    
+	ISR ASCLIN0_TX {
+  	    CATEGORY = 2;
+		PRIORITY = 19;
+  		HANDLER = "asclin0TxISR"; 
+		SOURCE = "ASCLIN0TX";
+	};
+	
+	ISR TimerISR {
+        CATEGORY = 2;
+        SOURCE   = "STM0SR0";
+        PRIORITY = 2; 
+    };
+    
+    ISR ButtonISR {
+    	CATEGORY = 2;
+    	SOURCE = "SCUERU0";
+    	PRIORITY = 10;
+    };
+};
