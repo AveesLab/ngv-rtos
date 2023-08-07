@@ -66,10 +66,6 @@ TASK(Task2)
 	    ClearEvent(Event2);
 	}
 
-	printfSerial("Task2 Waits...");
-	WaitEvent(Event1 | Event2);
-	printfSerial("Task2 Wakes Up...");
-
 	printfSerial("Task2 Finishes...");
 	TerminateTask();
 }
