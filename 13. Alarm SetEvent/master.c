@@ -27,7 +27,7 @@ ISR2(ButtonISR)
 	 } else if (a0 < 1200) {
 		 SetEvent(Task2, Event2);
 	 } else if (a0 < 1600) {
-		 SetEvent(Task2, Event3);
+		 ;
 	 } else if (a0 < 2200) {
 		 ;
 	 }
@@ -50,7 +50,7 @@ TASK(Task2)
 	EventMaskType mask;
 	printfSerial("Task2 Begins...");
 	printfSerial("Task2 Waits...");
-	WaitEvent(Event1 | Event2 | Event3);
+	WaitEvent(Event1 | Event2 );
 	printfSerial("Task2 Wakes Up...");
 	GetEvent(Task2, &mask);
 	if (mask & Event1) {
@@ -60,10 +60,6 @@ TASK(Task2)
 	if (mask & Event2) {
 	    printfSerial("[Event2]");
 	    ClearEvent(Event2);
-	}
-	if (mask & Event3) {
-	    printfSerial("[Event3]");
-	    ClearEvent(Event3);
 	}
 	printfSerial("Task2 Finishes...");
 	TerminateTask();
