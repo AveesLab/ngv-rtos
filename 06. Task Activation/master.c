@@ -1,4 +1,4 @@
-=#include "bsw.h"
+#include "bsw.h"
 extern App_AsclinAsc g_AsclinAsc;
 
 
