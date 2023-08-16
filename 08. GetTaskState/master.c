@@ -3,23 +3,23 @@ extern App_AsclinAsc g_AsclinAsc;
 
 void printState(TaskType id)
 {
-	TaskStateType state;
-	if (GetTaskState(id, &state) == E_OK) {
-	    switch (state) {
+    TaskStateType state;
+    if (GetTaskState(id, &state) == E_OK) {
+        switch (state) {
             case SUSPENDED:
-			    printfSerial("%d: suspended...", id);
-			    break;
+                printfSerial("%d: suspended...", id);
+                break;
             case READY:
                 printfSerial("%d: ready...", id);
                 break;
-			case WAITING:
-				printfSerial("%d: waiting...", id);
-				break;
-			case RUNNING:
-				printfSerial("%d: running...", id);
-				break;
-			}
-	}
+            case WAITING:
+                printfSerial("%d: waiting...", id);
+                break;
+            case RUNNING:
+                printfSerial("%d: running...", id);
+                break;
+        }
+    }
 }
 
 ISR(asclin0TxISR)
