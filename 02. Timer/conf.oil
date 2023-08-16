@@ -56,22 +56,22 @@ CPU test_application {
         APP_SRC="master.c";
     };
 
-	TASK Task1 {
-		PRIORITY = 1;
-		STACK = SHARED;
-		SCHEDULE = FULL;	// preemptive
-		AUTOSTART = TRUE;	
+    TASK Task1 {
+        PRIORITY = 1;
+        STACK = SHARED;
+        SCHEDULE = FULL;	// preemptive
+        AUTOSTART = TRUE;	
         ACTIVATION = 1;		
-	};
+    };
 
-	ISR ASCLIN0_TX {
-  	    CATEGORY = 2;
-		PRIORITY = 19;
-  		HANDLER = "asclin0TxISR"; 
-		SOURCE = "ASCLIN0TX";
-	};
+    ISR ASCLIN0_TX {
+        CATEGORY = 2;
+        PRIORITY = 19;
+        HANDLER = "asclin0TxISR"; 
+        SOURCE = "ASCLIN0TX";
+    };
 	
-	ISR TimerISR {
+    ISR TimerISR {
         CATEGORY = 2;
         SOURCE   = "STM0SR0";
         PRIORITY = 2; 
