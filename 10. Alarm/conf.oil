@@ -11,24 +11,18 @@ CPU test_application {
         CPU_DATA = TRICORE {
             ID = 0x0;
             CPU_CLOCK = 200.0;
-            MULTI_STACK = TRUE { IRQ_STACK = TRUE { SIZE = 256; }; };
         };
-
-    
 
         MCU_DATA = TC27X {
             DERIVATIVE = "tc275tf";
             REVISION = "DC";
         };
 
-    
-	
         KERNEL_TYPE = OSEK {
             CLASS = ECC2;
         };
     };
   
-
     APPDATA tricore_mc {
         APP_SRC="illd/src/IfxAsclin_Asc.c";
         APP_SRC="illd/src/IfxStm.c";
@@ -61,7 +55,6 @@ CPU test_application {
         APP_SRC="bsw.c";
         APP_SRC="master.c";
     };
-
 
 	TASK Task1 {
 		PRIORITY = 1;
@@ -107,7 +100,6 @@ CPU test_application {
         };
     };
 
- 
 	ISR ASCLIN0_TX {
   	    CATEGORY = 2;
 		PRIORITY = 19;
@@ -126,5 +118,4 @@ CPU test_application {
     	SOURCE = "SCUERU0";
     	PRIORITY = 10;
     };
-     
 };

@@ -14,21 +14,16 @@ CPU test_application {
             MULTI_STACK = TRUE;
         };
 
-    
-
         MCU_DATA = TC27X {
             DERIVATIVE = "tc275tf";
             REVISION = "DC";
         };
 
-    
-	
         KERNEL_TYPE = OSEK {
             CLASS = ECC2;
         };
     };
   
-
     APPDATA tricore_mc {
         APP_SRC="illd/src/IfxAsclin_Asc.c";
         APP_SRC="illd/src/IfxStm.c";
@@ -123,6 +118,7 @@ CPU test_application {
             CYCLETIME = 15;
         };
     };
+
 	ISR ASCLIN0_TX {
   	    CATEGORY = 2;
 		PRIORITY = 19;
@@ -141,5 +137,4 @@ CPU test_application {
     	SOURCE = "SCUERU0";
     	PRIORITY = 10;
     };
-     
 };
