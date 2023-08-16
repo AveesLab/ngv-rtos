@@ -5,9 +5,9 @@
 #define UNLOCKED  0
 
 typedef struct _MutexType {
-	int flag;
-	EventMaskType event;
-	TaskType waiting_task;
+    int flag;
+    EventMaskType event;
+    TaskType waiting_task;
 } MutexType;
 
 void InitMutex(MutexType *mutex, EventMaskType event);
