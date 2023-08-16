@@ -5,13 +5,13 @@ void printState(TaskType id)
 {
 	TaskStateType state;
 	if (GetTaskState(id, &state) == E_OK) {
-		switch (state) {
-			case SUSPENDED:
-				printfSerial("%d: suspended...", id);
-				break;
-			case READY:
-				printfSerial("%d: ready...", id);
-				break;
+	    switch (state) {
+            case SUSPENDED:
+			    printfSerial("%d: suspended...", id);
+			    break;
+            case READY:
+                printfSerial("%d: ready...", id);
+                break;
 			case WAITING:
 				printfSerial("%d: waiting...", id);
 				break;
@@ -24,16 +24,16 @@ void printState(TaskType id)
 
 ISR(asclin0TxISR)
 {
-	IfxAsclin_Asc_isrTransmit(&g_AsclinAsc.drivers.asc);
+    IfxAsclin_Asc_isrTransmit(&g_AsclinAsc.drivers.asc);
 }
 
 
 ISR2(TimerISR)
 {
-	osEE_tc_stm_set_sr0_next_match( 1000000U );
+    osEE_tc_stm_set_sr0_next_match( 1000000U );
     static long c = -4;
     if (c == 0)
-    	ActivateTask(Task1);
+        ActivateTask(Task1);
     printfSerial("\n%4ld: ", c++);
 }
 
@@ -71,8 +71,8 @@ TASK(Task2)
 
 TASK(TaskM)
 {
-	printState(Task1);
-	printState(Task2);
+    printState(Task1);
+    printState(Task2);
 
-	TerminateTask();
+    TerminateTask();
 }
