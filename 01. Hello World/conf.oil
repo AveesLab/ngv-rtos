@@ -17,8 +17,8 @@ CPU test_application {
     
 
         MCU_DATA = TC27X {
-        DERIVATIVE = "tc275tf";
-        REVISION = "DC";
+            DERIVATIVE = "tc275tf";
+            REVISION = "DC";
         };
 
     
