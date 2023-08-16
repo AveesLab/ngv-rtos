@@ -61,36 +61,34 @@ void UART_init(void)
 
 void printfSerial(const char *fmt,...)
 {
-	EnableAllInterrupts();
-	 char buf[LEN_BUF];
-	 va_list args;
-	 va_start (args, fmt );
-	 vsnprintf(buf, LEN_BUF, fmt, args);
-	 va_end (args);
-	 /* prepare data to transmit and receive */
-	 uint8 txData[100];
-	 g_AsclinAsc.count = strlen(buf);
-	 unsigned int i =0;
-	 for(; i<strlen(buf);i++)
-	   {
-	     txData[i] = buf[i];
-	    }
-	 /* Transmit data */
-	 IfxAsclin_Asc_write(&g_AsclinAsc.drivers.asc, txData, &g_AsclinAsc.count, TIME_INFINITE);
-
+    EnableAllInterrupts();
+    char buf[LEN_BUF];
+    va_list args;
+    va_start (args, fmt );
+    vsnprintf(buf, LEN_BUF, fmt, args);
+    va_end (args);
+    /* prepare data to transmit and receive */
+    uint8 txData[100];
+    g_AsclinAsc.count = strlen(buf);
+    unsigned int i =0;
+    for(; i<strlen(buf);i++) {
+        txData[i] = buf[i];
+    }
+    /* Transmit data */
+    IfxAsclin_Asc_write(&g_AsclinAsc.drivers.asc, txData, &g_AsclinAsc.count, TIME_INFINITE);
 }
 
 void mdelay(unsigned long delay_ms)
 {
-	unsigned long prev_ms = IfxStm_get(&MODULE_STM0) / (IfxStm_getFrequency(&MODULE_STM0) / ( 1000 /1 )), current_ms = IfxStm_get(&MODULE_STM0) / (IfxStm_getFrequency(&MODULE_STM0) / ( 1000 /1 ));
-	unsigned long period_ms = 20, cnt = 0;
-	while (cnt < (delay_ms / period_ms)) {
-		current_ms = IfxStm_get(&MODULE_STM0) / (IfxStm_getFrequency(&MODULE_STM0) / ( 1000 /1 ));
-		if (current_ms - prev_ms >= period_ms) {
-			cnt++;
-			prev_ms = IfxStm_get(&MODULE_STM0) / (IfxStm_getFrequency(&MODULE_STM0) / ( 1000 /1 ));
-		}
-	}
+    unsigned long prev_ms = IfxStm_get(&MODULE_STM0) / (IfxStm_getFrequency(&MODULE_STM0) / ( 1000 /1 )), current_ms = IfxStm_get(&MODULE_STM0) / (IfxStm_getFrequency(&MODULE_STM0) / ( 1000 /1 ));
+    unsigned long period_ms = 20, cnt = 0;
+    while (cnt < (delay_ms / period_ms)) {
+	    current_ms = IfxStm_get(&MODULE_STM0) / (IfxStm_getFrequency(&MODULE_STM0) / ( 1000 /1 ));
+	    if (current_ms - prev_ms >= period_ms) {
+		    cnt++;
+		    prev_ms = IfxStm_get(&MODULE_STM0) / (IfxStm_getFrequency(&MODULE_STM0) / ( 1000 /1 ));
+	    }
+    }
 }
 
 /* Function to initialize the VADC module */
@@ -137,8 +135,7 @@ void initVADCChannels(void)
     IfxVadc_Adc_ChannelConfig adcChannelConf[CHANNELS_NUM];             /* Array of configuration structures        */
 
     uint16 chn;
-    for(chn = 0; chn < CHANNELS_NUM; chn++)                             /* Initialize all the channels in a loop    */
-    {
+    for (chn = 0; chn < CHANNELS_NUM; chn++) {                             /* Initialize all the channels in a loop    */
         /* Fill the configuration with default values */
         IfxVadc_Adc_initChannelConfig(&adcChannelConf[chn], &g_vadcGroup);
 
@@ -215,12 +212,67 @@ void initPeripheralsAndERU(void)
     IfxSrc_enable(g_ERUconfig.src);
 }
 
+/* Function to read the VADC measurement */
+uint16 readADCValue(uint8 channel)
+{
+    Ifx_VADC_RES conversionResult;
+    do
+    {
+        conversionResult = IfxVadc_Adc_getResult(&g_vadcChannel[channel]);
+    } while(!conversionResult.B.VF);
+
+    return conversionResult.B.RESULT;
+}
+
+void initPeripheralsAndERU(void)
+{
+    /* Initialize pins which are used to trigger and visualize the interrupt and set the default states */
+    IfxPort_setPinMode(TRIGGER_PIN, IfxPort_Mode_inputPullUp);              /* Initialize TRIGGER_PIN port pin  */
+
+
+    /* Trigger pin */
+    g_ERUconfig.reqPin = REQ_IN; /* Select external request pin */
+
+    /* Initialize this pin with pull-down enabled
+     * This function will also configure the input multiplexers of the ERU (Register EXISx)
+     */
+    IfxScuEru_initReqPin(g_ERUconfig.reqPin, IfxPort_InputMode_pullDown);
+
+    /* Determine input channel depending on input pin */
+    g_ERUconfig.inputChannel = (IfxScuEru_InputChannel) g_ERUconfig.reqPin->channelId;
+
+    /* Input channel configuration */
+  //  IfxScuEru_enableRisingEdgeDetection(g_ERUconfig.inputChannel);          /* Interrupt triggers on
+                                                                             //  rising edge (Register RENx) and  */
+    IfxScuEru_enableFallingEdgeDetection(g_ERUconfig.inputChannel);         /* on falling edge (Register FENx)  */
+
+    /* Signal destination */
+    g_ERUconfig.outputChannel = IfxScuEru_OutputChannel_0;                  /* OGU channel 0                    */
+    /* Event from input ETL0 triggers output OGU0 (signal TRx0) */
+    g_ERUconfig.triggerSelect = IfxScuEru_InputNodePointer_0;
+
+    /* Connecting Matrix, Event Trigger Logic ETL block */
+    /* Enable generation of trigger event (Register EIENx) */
+    IfxScuEru_enableTriggerPulse(g_ERUconfig.inputChannel);
+    /* Determination of output channel for trigger event (Register INPx) */
+    IfxScuEru_connectTrigger(g_ERUconfig.inputChannel, g_ERUconfig.triggerSelect);
+
+    /* Configure Output channels, OutputGating Unit OGU (Register IGPy) */
+    IfxScuEru_setInterruptGatingPattern(g_ERUconfig.outputChannel, IfxScuEru_InterruptGatingPattern_alwaysActive);
+
+    /* Service request configuration */
+    /* Get source pointer depending on outputChannel (SRC_SCUERU0 for outputChannel0) */
+    g_ERUconfig.src = &MODULE_SRC.SCU.SCU.ERU[(int) g_ERUconfig.outputChannel % 4];
+    IfxSrc_init(g_ERUconfig.src, IfxSrc_Tos_cpu0, ISR_PRIORITY_SCUERU_INT0);
+    IfxSrc_enable(g_ERUconfig.src);
+}
+
 int main(void)
 {
-	osEE_tc_stm_set_clockpersec();
-	osEE_tc_stm_set_sr0( 1000000U , 1U ) ;
+    osEE_tc_stm_set_clockpersec();
+    osEE_tc_stm_set_sr0( 1000000U , 1U ) ;
 
-	UART_init();
+    UART_init();
 
     printfSerial("\n...............\n");
     printfSerial("...OS Starts...\n");
