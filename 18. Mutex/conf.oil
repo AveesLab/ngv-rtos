@@ -74,13 +74,13 @@ CPU test_application {
     TASK TaskL {
         PRIORITY = 1;       
         STACK = PRIVATE{
-              SIZE = 1024;
+            SIZE = 1024;
         };
         SCHEDULE = FULL;
         AUTOSTART = FALSE;
         ACTIVATION = 1;
         EVENT = Event1;
-        };
+    };
 	
     ISR ASCLIN0_TX {
         CATEGORY = 2;
