@@ -56,21 +56,21 @@ CPU test_application {
         APP_SRC="master.c";
     };
 
-	TASK Task1 {
-		PRIORITY = 1;
-		STACK = SHARED;
-		SCHEDULE = FULL;
-		AUTOSTART = FALSE;
+    TASK Task1 {
+        PRIORITY = 1;
+        STACK = SHARED;
+        SCHEDULE = FULL;
+        AUTOSTART = FALSE;
         ACTIVATION = 1;
-	};
+    };
 	
-	TASK Task2 {
-		PRIORITY = 2;
-		STACK = SHARED;
-		SCHEDULE = FULL;
-		AUTOSTART = FALSE;
+    TASK Task2 {
+        PRIORITY = 2;
+        STACK = SHARED;
+        SCHEDULE = FULL;
+        AUTOSTART = FALSE;
         ACTIVATION = 1;
-	};
+    };
 	
     COUNTER mycounter {
         MINCYCLE = 1;
@@ -100,7 +100,7 @@ CPU test_application {
         };
     };
 
- 	ALARM alarm3 {
+    ALARM alarm3 {
         COUNTER = mycounter;
         ACTION = ALARMCALLBACK {
             ALARMCALLBACKNAME = "MyCallback";
@@ -111,22 +111,22 @@ CPU test_application {
         };
     };
 
-	ISR ASCLIN0_TX {
-  	    CATEGORY = 2;
-		PRIORITY = 19;
-  		HANDLER = "asclin0TxISR"; 
-		SOURCE = "ASCLIN0TX";
-	};
+    ISR ASCLIN0_TX {
+        CATEGORY = 2;
+        PRIORITY = 19;
+        HANDLER = "asclin0TxISR"; 
+        SOURCE = "ASCLIN0TX";
+    };
 	
-	ISR TimerISR {
+    ISR TimerISR {
         CATEGORY = 2;
         SOURCE   = "STM0SR0";
         PRIORITY = 2; 
     };
     
     ISR ButtonISR {
-    	CATEGORY = 2;
-    	SOURCE = "SCUERU0";
-    	PRIORITY = 10;
+        CATEGORY = 2;
+        SOURCE = "SCUERU0";
+        PRIORITY = 10;
     };
 };
