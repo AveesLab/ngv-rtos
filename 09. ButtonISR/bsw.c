@@ -61,36 +61,34 @@ void UART_init(void)
 
 void printfSerial(const char *fmt,...)
 {
-	EnableAllInterrupts();
-	 char buf[LEN_BUF];
-	 va_list args;
-	 va_start (args, fmt );
-	 vsnprintf(buf, LEN_BUF, fmt, args);
-	 va_end (args);
-	 /* prepare data to transmit and receive */
-	 uint8 txData[100];
-	 g_AsclinAsc.count = strlen(buf);
-	 unsigned int i =0;
-	 for(; i<strlen(buf);i++)
-	   {
-	     txData[i] = buf[i];
-	    }
-	 /* Transmit data */
-	 IfxAsclin_Asc_write(&g_AsclinAsc.drivers.asc, txData, &g_AsclinAsc.count, TIME_INFINITE);
-
+    EnableAllInterrupts();
+    char buf[LEN_BUF];
+    va_list args;
+    va_start (args, fmt );
+    vsnprintf(buf, LEN_BUF, fmt, args);
+    va_end (args);
+    /* prepare data to transmit and receive */
+    uint8 txData[100];
+    g_AsclinAsc.count = strlen(buf);
+    unsigned int i =0;
+    for(; i<strlen(buf);i++) {
+        txData[i] = buf[i];
+    }
+    /* Transmit data */
+    IfxAsclin_Asc_write(&g_AsclinAsc.drivers.asc, txData, &g_AsclinAsc.count, TIME_INFINITE);
 }
 
 void mdelay(unsigned long delay_ms)
 {
-	unsigned long prev_ms = IfxStm_get(&MODULE_STM0) / (IfxStm_getFrequency(&MODULE_STM0) / ( 1000 /1 )), current_ms = IfxStm_get(&MODULE_STM0) / (IfxStm_getFrequency(&MODULE_STM0) / ( 1000 /1 ));
-	unsigned long period_ms = 20, cnt = 0;
-	while (cnt < (delay_ms / period_ms)) {
-		current_ms = IfxStm_get(&MODULE_STM0) / (IfxStm_getFrequency(&MODULE_STM0) / ( 1000 /1 ));
-		if (current_ms - prev_ms >= period_ms) {
-			cnt++;
-			prev_ms = IfxStm_get(&MODULE_STM0) / (IfxStm_getFrequency(&MODULE_STM0) / ( 1000 /1 ));
-		}
-	}
+    unsigned long prev_ms = IfxStm_get(&MODULE_STM0) / (IfxStm_getFrequency(&MODULE_STM0) / ( 1000 /1 )), current_ms = IfxStm_get(&MODULE_STM0) / (IfxStm_getFrequency(&MODULE_STM0) / ( 1000 /1 ));
+    unsigned long period_ms = 20, cnt = 0;
+    while (cnt < (delay_ms / period_ms)) {
+	    current_ms = IfxStm_get(&MODULE_STM0) / (IfxStm_getFrequency(&MODULE_STM0) / ( 1000 /1 ));
+	    if (current_ms - prev_ms >= period_ms) {
+		    cnt++;
+		    prev_ms = IfxStm_get(&MODULE_STM0) / (IfxStm_getFrequency(&MODULE_STM0) / ( 1000 /1 ));
+	    }
+    }
 }
 
 /* Function to initialize the VADC module */
@@ -137,8 +135,7 @@ void initVADCChannels(void)
     IfxVadc_Adc_ChannelConfig adcChannelConf[CHANNELS_NUM];             /* Array of configuration structures        */
 
     uint16 chn;
-    for(chn = 0; chn < CHANNELS_NUM; chn++)                             /* Initialize all the channels in a loop    */
-    {
+    for (chn = 0; chn < CHANNELS_NUM; chn++) {                             /* Initialize all the channels in a loop    */
         /* Fill the configuration with default values */
         IfxVadc_Adc_initChannelConfig(&adcChannelConf[chn], &g_vadcGroup);
 
