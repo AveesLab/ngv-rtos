@@ -54,7 +54,7 @@ CPU test_application {
         APP_SRC="illd/Libraries/iLLD/TC27D/Tricore/Vadc/std/IfxVadc.c";
 
         APP_SRC="bsw.c";
-        APP_SRC="master.c";
+        APP_SRC="asw.c";
     };
   
     TASK Task1 {

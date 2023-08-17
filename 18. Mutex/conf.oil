@@ -55,7 +55,7 @@ CPU test_application {
         
         APP_SRC="mutex.c";
         APP_SRC="bsw.c";
-        APP_SRC="master.c";
+        APP_SRC="asw.c";
     };
 
     EVENT Event1 { MASK = AUTO; };
