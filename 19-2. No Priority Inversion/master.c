@@ -1,15 +1,6 @@
 #include "bsw.h"
 #include "mutex.h"
-extern App_AsclinAsc g_AsclinAsc;
 MutexType s1;
-
-
-
-ISR(asclin0TxISR)
-{
-    IfxAsclin_Asc_isrTransmit(&g_AsclinAsc.drivers.asc);
-}
-
 
 ISR2(TimerISR)
 {
@@ -26,8 +17,6 @@ ISR2(TimerISR)
         ActivateTask(TaskM);
     }
 }
-
-
 
 TASK(TaskH)
 {

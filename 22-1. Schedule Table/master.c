@@ -1,16 +1,5 @@
 #include "bsw.h"
 
-extern App_AsclinAsc g_AsclinAsc;
-
-
-
-
-ISR(asclin0TxISR)
-{
-    IfxAsclin_Asc_isrTransmit(&g_AsclinAsc.drivers.asc);
-}
-
-
 ISR2(TimerISR)
 {
     osEE_tc_stm_set_sr0_next_match( 1000000U );
@@ -18,8 +7,6 @@ ISR2(TimerISR)
     IncrementCounter(mycounter);
     printfSerial("\n%4ld: ", ++c);
 }
-
-
 
 TASK(TaskH)
 {

@@ -1,8 +1,5 @@
 #include "bsw.h"
 
-extern App_AsclinAsc g_AsclinAsc;
-
-
 #define UP 		1
 #define DOWN 	-1
 
@@ -27,12 +24,6 @@ void Runnable_3(void)
 {
     R3_out = R3_in;
 }
-
-ISR(asclin0TxISR)
-{
-    IfxAsclin_Asc_isrTransmit(&g_AsclinAsc.drivers.asc);
-}
-
 
 ISR2(TimerISR)
 {
@@ -69,7 +60,6 @@ ISR2(ButtonISR)
 
     EnableAllInterrupts();
 }
-
 
 TASK(Task_2s)
 {

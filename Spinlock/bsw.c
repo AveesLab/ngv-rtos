@@ -212,6 +212,11 @@ void initPeripheralsAndERU(void)
     IfxSrc_enable(g_ERUconfig.src);
 }
 
+ISR(asclin0TxISR)
+{
+    IfxAsclin_Asc_isrTransmit(&g_AsclinAsc.drivers.asc);
+}
+
 int main(void)
 {
     osEE_tc_stm_set_clockpersec();

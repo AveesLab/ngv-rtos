@@ -1,20 +1,11 @@
 #include "bsw.h"
-extern App_AsclinAsc g_AsclinAsc;
 volatile unsigned long shared = 0;
-
-ISR(asclin0TxISR)
-{
-    IfxAsclin_Asc_isrTransmit(&g_AsclinAsc.drivers.asc);
-}
-
 
 ISR2(TimerISR)
 {
     osEE_tc_stm_set_sr0_next_match( 1000U );
     IncrementCounter(mycounter);
 }
-
-
 
 TASK(Task1)
 {

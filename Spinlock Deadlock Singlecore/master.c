@@ -1,12 +1,5 @@
 #include "bsw.h"
 
-extern App_AsclinAsc g_AsclinAsc;
-
-ISR(asclin0TxISR)
-{
-    IfxAsclin_Asc_isrTransmit(&g_AsclinAsc.drivers.asc);
-}
-
 ISR2(TimerISR)
 {
     osEE_tc_stm_set_sr0_next_match( 1000000U );
@@ -29,8 +22,6 @@ TASK(TaskSlave0)
     printfSerial("TasH ends. ");
     TerminateTask();
 }
-
-
 
 TASK(Task2Slave0)
 {
