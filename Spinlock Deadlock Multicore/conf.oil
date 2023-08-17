@@ -67,16 +67,14 @@ CPU test_application {
         APP_SRC="illd/Libraries/iLLD/TC27D/Tricore/Vadc/std/IfxVadc.c";
 
         APP_SRC="bsw.c";
-        APP_SRC="master.c";
-        APP_SRC="slave1.c";
-        APP_SRC="slave2.c";
+        APP_SRC="asw.c";
     };
 
     SPINLOCK S1 {};
     SPINLOCK S2 {};
     SPINLOCK S3 {};
 
-    TASK TaskSlave0{ 
+    TASK TaskCPU0{ 
         CPU_ID = 0x1;
         PRIORITY = 5; 
         ACTIVATION = 1;
@@ -86,19 +84,11 @@ CPU test_application {
     };
  
 
-    TASK TaskSlave1 {
+    TASK TaskCPU1 {
         CPU_ID = 0x2;
         PRIORITY = 5; 
         ACTIVATION = 1;
         AUTOSTART = FALSE;
-        SCHEDULE = FULL; STACK = SHARED;
-    };
-
-    TASK TaskSlave2 {
-        CPU_ID = 0x0;
-        PRIORITY = 3; 
-        ACTIVATION = 1;
-        AUTOSTART = TRUE;
         SCHEDULE = FULL; 
         STACK = SHARED;
     };
@@ -108,7 +98,7 @@ CPU test_application {
     ALARM alarm1 {
         COUNTER = myCounter;
         ACTION = ACTIVATETASK {
-            TASK = TaskSlave0;
+            TASK = TaskCPU0;
         };
         AUTOSTART = TRUE {
             ALARMTIME = 5;
@@ -119,7 +109,7 @@ CPU test_application {
     ALARM alarm2 {
         COUNTER = myCounter;
         ACTION = ACTIVATETASK {
-            TASK = TaskSlave1;
+            TASK = TaskCPU1;
         };
         AUTOSTART = TRUE {
             ALARMTIME = 5;

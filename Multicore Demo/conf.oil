@@ -67,12 +67,10 @@ CPU test_application {
         APP_SRC="illd/Libraries/iLLD/TC27D/Tricore/Vadc/std/IfxVadc.c";
 
         APP_SRC="bsw.c";
-        APP_SRC="master.c";
-        APP_SRC="slave1.c";
-        APP_SRC="slave2.c";
+        APP_SRC="asw.c";
     };
 
-    TASK TaskMaster {
+    TASK TaskCPU0 {
         CPU_ID = 0x0;
         PRIORITY = 1;
     };
@@ -82,7 +80,7 @@ CPU test_application {
         PRIORITY = 2;
     };
 
-    TASK TaskSlave1 {
+    TASK TaskCPU1 {
         CPU_ID = 0x1;
         PRIORITY = 1;
         AUTOSTART = TRUE;
@@ -94,7 +92,7 @@ CPU test_application {
         EVENT = Event1;
     };
 
-    TASK TaskSlave2 {
+    TASK TaskCPU2 {
         CPU_ID = 0x2;
         PRIORITY = 1;
     };
@@ -103,13 +101,13 @@ CPU test_application {
 
     COUNTER myCounter;
 
-    ALARM AlarmMaster_1s {
+    ALARM AlarmCPU0_1s {
         COUNTER = myCounter;
-        ACTION = ACTIVATETASK { TASK = TaskMaster; };
+        ACTION = ACTIVATETASK { TASK = TaskCPU0; };
         AUTOSTART = TRUE { ALARMTIME = 1000; CYCLETIME = 1000; };
     };
 
-    ALARM AlarmSlave2RemoteCPU0 {
+    ALARM AlarmCPU22RemoteCPU0 {
         COUNTER = myCounter;
         ACTION = ACTIVATETASK { TASK = TaskCpu0Remote; };
     };

@@ -8,7 +8,7 @@ ISR2(TimerISR)
     IncrementCounter(myCounter);
 }
 
-TASK(TaskSlave0)
+TASK(TaskH)
 {
     printfSerial("TaskH begins.");
     mdelay(1000);
@@ -23,7 +23,7 @@ TASK(TaskSlave0)
     TerminateTask();
 }
 
-TASK(Task2Slave0)
+TASK(TaskL)
 {
     printfSerial("TaskL begins.");
     mdelay(1000);
