@@ -39,4 +39,3 @@ TASK(TaskL)
     printfSerial("TaskL ends.");
     TerminateTask();
 }
-

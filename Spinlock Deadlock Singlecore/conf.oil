@@ -17,11 +17,6 @@ CPU test_application {
             MULTI_STACK = TRUE;
         };
 
-        CPU_DATA = TRICORE {
-            ID = 0x2;
-            MULTI_STACK=TRUE;
-        };
-
         MCU_DATA = TC27X {
             DERIVATIVE = "tc275tf";
             REVISION = "DC";
@@ -84,7 +79,7 @@ CPU test_application {
         AUTOSTART = FALSE;
         SCHEDULE = FULL; STACK = SHARED;
     };    
-
+  
     COUNTER myCounter;
    
     ALARM alarm1 {
@@ -97,7 +92,7 @@ CPU test_application {
             CYCLETIME = 10;
         };
     };	
-      ALARM alarm3 {
+      ALARM alarm2 {
         COUNTER = myCounter;
         ACTION = ACTIVATETASK {
             TASK = TaskL;

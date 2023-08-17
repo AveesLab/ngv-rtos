@@ -3,6 +3,7 @@ EE_DIR='C:\eclipse'
 HIGHTEC_DIR='C:\HighTec\toolchains\tricore\v4.9.3.0-infineon-1.0\bin'
 BUILD_DIR='out'
 ELF_FILE=erika3app.elf
+ERIKA_DIR='../erika'
 
 all: build
 
@@ -16,4 +17,4 @@ config:
 	$(GENERATOR) $(EE_DIR) conf.oil .; echo "[Config DONE]"
 
 clean:
-	cd $(BUILD_DIR); make BINDIR=$(HIGHTEC_DIR) clean
+	cd $(BUILD_DIR); make BINDIR=$(HIGHTEC_DIR) clean; rm -rf $(ERIKA_DIR);

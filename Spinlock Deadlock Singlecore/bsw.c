@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdarg.h>
-#include "shared_data.h"
+
 
 
 #define CHANNELS_NUM    4                       /* Number of used channels                                          */
@@ -236,12 +236,10 @@ int main(void)
     if (core_id == OS_CORE_ID_MASTER) {
         UART_init();
         StartCore(OS_CORE_ID_1, &status);
-        StartCore(OS_CORE_ID_2, &status);
         mode = OSDEFAULTAPPMODE;
     } else {
         mode = DONOTCARE;
     }
-
     StartOS(mode);
     return 0;
 }
