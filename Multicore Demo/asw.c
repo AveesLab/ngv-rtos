@@ -9,7 +9,7 @@ ISR2(TimerISR)
 TASK(TaskCPU0)
 {
     printfSerial("TaskCPU0 start..\n");
-    SetEvent(TaskSlave1, Event1);
+    SetEvent(TaskCPU1, Event1);
     TerminateTask();
 }
 
@@ -24,7 +24,7 @@ TASK(TaskCPU1)
     printfSerial("TaskCPU1 start..\n");
     while (1) {
         WaitEvent(Event1);
-        ActivateTask(TaskSlave2);
+        ActivateTask(TaskCPU2);
         ClearEvent(Event1);
     }
     TerminateTask();

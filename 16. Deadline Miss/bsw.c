@@ -224,7 +224,7 @@ int main(void)
 
     UART_init();
 
-    rintfSerial("\n...............\n");
+    printfSerial("\n...............\n");
     printfSerial("...OS Starts...\n");
     printfSerial("...............\n");
 

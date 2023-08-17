@@ -212,61 +212,6 @@ void initPeripheralsAndERU(void)
     IfxSrc_enable(g_ERUconfig.src);
 }
 
-/* Function to read the VADC measurement */
-uint16 readADCValue(uint8 channel)
-{
-    Ifx_VADC_RES conversionResult;
-    do
-    {
-        conversionResult = IfxVadc_Adc_getResult(&g_vadcChannel[channel]);
-    } while(!conversionResult.B.VF);
-
-    return conversionResult.B.RESULT;
-}
-
-void initPeripheralsAndERU(void)
-{
-    /* Initialize pins which are used to trigger and visualize the interrupt and set the default states */
-    IfxPort_setPinMode(TRIGGER_PIN, IfxPort_Mode_inputPullUp);              /* Initialize TRIGGER_PIN port pin  */
-
-
-    /* Trigger pin */
-    g_ERUconfig.reqPin = REQ_IN; /* Select external request pin */
-
-    /* Initialize this pin with pull-down enabled
-     * This function will also configure the input multiplexers of the ERU (Register EXISx)
-     */
-    IfxScuEru_initReqPin(g_ERUconfig.reqPin, IfxPort_InputMode_pullDown);
-
-    /* Determine input channel depending on input pin */
-    g_ERUconfig.inputChannel = (IfxScuEru_InputChannel) g_ERUconfig.reqPin->channelId;
-
-    /* Input channel configuration */
-  //  IfxScuEru_enableRisingEdgeDetection(g_ERUconfig.inputChannel);          /* Interrupt triggers on
-                                                                             //  rising edge (Register RENx) and  */
-    IfxScuEru_enableFallingEdgeDetection(g_ERUconfig.inputChannel);         /* on falling edge (Register FENx)  */
-
-    /* Signal destination */
-    g_ERUconfig.outputChannel = IfxScuEru_OutputChannel_0;                  /* OGU channel 0                    */
-    /* Event from input ETL0 triggers output OGU0 (signal TRx0) */
-    g_ERUconfig.triggerSelect = IfxScuEru_InputNodePointer_0;
-
-    /* Connecting Matrix, Event Trigger Logic ETL block */
-    /* Enable generation of trigger event (Register EIENx) */
-    IfxScuEru_enableTriggerPulse(g_ERUconfig.inputChannel);
-    /* Determination of output channel for trigger event (Register INPx) */
-    IfxScuEru_connectTrigger(g_ERUconfig.inputChannel, g_ERUconfig.triggerSelect);
-
-    /* Configure Output channels, OutputGating Unit OGU (Register IGPy) */
-    IfxScuEru_setInterruptGatingPattern(g_ERUconfig.outputChannel, IfxScuEru_InterruptGatingPattern_alwaysActive);
-
-    /* Service request configuration */
-    /* Get source pointer depending on outputChannel (SRC_SCUERU0 for outputChannel0) */
-    g_ERUconfig.src = &MODULE_SRC.SCU.SCU.ERU[(int) g_ERUconfig.outputChannel % 4];
-    IfxSrc_init(g_ERUconfig.src, IfxSrc_Tos_cpu0, ISR_PRIORITY_SCUERU_INT0);
-    IfxSrc_enable(g_ERUconfig.src);
-}
-
 ISR(asclin0TxISR)
 {
     IfxAsclin_Asc_isrTransmit(&g_AsclinAsc.drivers.asc);

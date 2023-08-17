@@ -17,10 +17,6 @@ CPU test_application {
             ID = 0x1;
         };
 
-        CPU_DATA = TRICORE {
-            ID = 0x2;
-        };
-
         MCU_DATA = TC27X {
             DERIVATIVE = "tc275tf";
             REVISION = "DC";

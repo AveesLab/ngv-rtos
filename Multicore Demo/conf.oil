@@ -107,7 +107,7 @@ CPU test_application {
         AUTOSTART = TRUE { ALARMTIME = 1000; CYCLETIME = 1000; };
     };
 
-    ALARM AlarmCPU22RemoteCPU0 {
+    ALARM AlarmCPU2RemoteCPU0 {
         COUNTER = myCounter;
         ACTION = ACTIVATETASK { TASK = TaskCpu0Remote; };
     };
