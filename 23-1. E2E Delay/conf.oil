@@ -137,8 +137,8 @@ CPU test_application {
     };
     
     ISR ButtonISR {
-    	CATEGORY = 2;
-    	SOURCE = "SCUERU0";
-    	PRIORITY = 10;
+        CATEGORY = 2;
+        SOURCE = "SCUERU0";
+        PRIORITY = 10;
     };
 };

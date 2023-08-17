@@ -31,15 +31,10 @@ IfxVadc_ChannelId g_vadcChannelIDs[] = {IfxVadc_ChannelId_4,  /* AN36: channel 4
                                         IfxVadc_ChannelId_6,  /* AN38: channel 6 of group 4                         */
                                         IfxVadc_ChannelId_7}; /* AN39: channel 7 of group 4                         */
 
-
-
-
-
 unsigned long long get_time(void)
 {
 	return IfxStm_get(&MODULE_STM0) / (IfxStm_getFrequency(&MODULE_STM0) / ( 1000 /1 ));
 }
-
 
 void UART_init(void)
 {
@@ -71,46 +66,38 @@ void UART_init(void)
 }
 
 
-
-
 void printfSerial(const char *fmt,...)
 {
-	EnableAllInterrupts();
-	 char buf[LEN_BUF];
-	 va_list args;
-	 va_start (args, fmt );
-	 vsnprintf(buf, LEN_BUF, fmt, args);
-	 va_end (args);
-	 /* prepare data to transmit and receive */
-	 uint8 txData[100];
-	 g_AsclinAsc.count = strlen(buf);
-	 unsigned int i =0;
-	 for(; i<strlen(buf);i++)
-	   {
-	     txData[i] = buf[i];
-	    }
-	 /* Transmit data */
-	 IfxAsclin_Asc_write(&g_AsclinAsc.drivers.asc, txData, &g_AsclinAsc.count, TIME_INFINITE);
-
+    EnableAllInterrupts();
+    char buf[LEN_BUF];
+    va_list args;
+    va_start (args, fmt );
+    vsnprintf(buf, LEN_BUF, fmt, args);
+    va_end (args);
+    /* prepare data to transmit and receive */
+    uint8 txData[100];
+    g_AsclinAsc.count = strlen(buf);
+    unsigned int i =0;
+    for(; i<strlen(buf);i++) {
+        txData[i] = buf[i];
+    }
+    /* Transmit data */
+    IfxAsclin_Asc_write(&g_AsclinAsc.drivers.asc, txData, &g_AsclinAsc.count, TIME_INFINITE);
 }
 
 void mdelay(unsigned long delay_ms)
 {
-	unsigned long prev_ms = IfxStm_get(&MODULE_STM0) / (IfxStm_getFrequency(&MODULE_STM0) / ( 1000 /1 )), current_ms = IfxStm_get(&MODULE_STM0) / (IfxStm_getFrequency(&MODULE_STM0) / ( 1000 /1 ));
-	unsigned long period_ms = 20, cnt = 0;
-	while (cnt < (delay_ms / period_ms)) {
-		current_ms = IfxStm_get(&MODULE_STM0) / (IfxStm_getFrequency(&MODULE_STM0) / ( 1000 /1 ));
-		if (current_ms - prev_ms >= period_ms) {
-			cnt++;
-			prev_ms = IfxStm_get(&MODULE_STM0) / (IfxStm_getFrequency(&MODULE_STM0) / ( 1000 /1 ));
-		}
-	}
+    unsigned long prev_ms = IfxStm_get(&MODULE_STM0) / (IfxStm_getFrequency(&MODULE_STM0) / ( 1000 /1 )), current_ms = IfxStm_get(&MODULE_STM0) / (IfxStm_getFrequency(&MODULE_STM0) / ( 1000 /1 ));
+    unsigned long period_ms = 20, cnt = 0;
+    while (cnt < (delay_ms / period_ms)) {
+	    current_ms = IfxStm_get(&MODULE_STM0) / (IfxStm_getFrequency(&MODULE_STM0) / ( 1000 /1 ));
+	    if (current_ms - prev_ms >= period_ms) {
+		    cnt++;
+		    prev_ms = IfxStm_get(&MODULE_STM0) / (IfxStm_getFrequency(&MODULE_STM0) / ( 1000 /1 ));
+	    }
+    }
 }
 
-
-/*********************************************************************************************************************/
-/*---------------------------------------------Function Implementations----------------------------------------------*/
-/*********************************************************************************************************************/
 /* Function to initialize the VADC module */
 void initADC(void)
 {
@@ -155,8 +142,7 @@ void initVADCChannels(void)
     IfxVadc_Adc_ChannelConfig adcChannelConf[CHANNELS_NUM];             /* Array of configuration structures        */
 
     uint16 chn;
-    for(chn = 0; chn < CHANNELS_NUM; chn++)                             /* Initialize all the channels in a loop    */
-    {
+    for (chn = 0; chn < CHANNELS_NUM; chn++) {                             /* Initialize all the channels in a loop    */
         /* Fill the configuration with default values */
         IfxVadc_Adc_initChannelConfig(&adcChannelConf[chn], &g_vadcGroup);
 
@@ -189,7 +175,6 @@ uint16 readADCValue(uint8 channel)
 
     return conversionResult.B.RESULT;
 }
-
 
 void initPeripheralsAndERU(void)
 {
@@ -234,47 +219,24 @@ void initPeripheralsAndERU(void)
     IfxSrc_enable(g_ERUconfig.src);
 }
 
-
-
-
-
-
-
-
 int main(void)
 {
-
-
-
-	osEE_tc_stm_set_clockpersec();
-	osEE_tc_stm_set_sr0( 1000000U , 1U ) ;
+    osEE_tc_stm_set_clockpersec();
+    osEE_tc_stm_set_sr0( 1000000U , 1U ) ;
 
     StatusType       status;
     AppModeType      mode;
     CoreIdType const core_id = GetCoreID();
 
     if (core_id == OS_CORE_ID_MASTER) {
-
-      UART_init();
-  	unsigned int i = 0;
-  	for (; i < 4000; i++)
-  	    {
-  	        shared_list_1[i] = 1;
-  	        shared_list_2[i] = 1;
-  	    }
-  	  start_time1 = get_time();
-      StartCore(OS_CORE_ID_1, &status);
-      StartCore(OS_CORE_ID_2, &status);
-
-      mode = OSDEFAULTAPPMODE;
+        UART_init();
+        StartCore(OS_CORE_ID_1, &status);
+        StartCore(OS_CORE_ID_2, &status);
+        mode = OSDEFAULTAPPMODE;
     } else {
-      mode = DONOTCARE;
+        mode = DONOTCARE;
     }
 
     StartOS(mode);
-
-
-
-
     return 0;
 }
