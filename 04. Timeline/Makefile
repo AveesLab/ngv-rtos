@@ -17,4 +17,4 @@ config:
 	$(GENERATOR) $(EE_DIR) conf.oil .; echo "[Config DONE]"
 
 clean:
-	cd $(BUILD_DIR); make BINDIR=$(HIGHTEC_DIR) clean; rm -rf $(ERIKA_DIR);
+	cd $(BUILD_DIR); make BINDIR=$(HIGHTEC_DIR) clean
