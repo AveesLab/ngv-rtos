@@ -56,14 +56,6 @@ CPU test_application {
         APP_SRC="asw.c";
     };
 
-    TASK Task1 {
-        PRIORITY = 1;
-        STACK = SHARED;
-        SCHEDULE = FULL;
-        AUTOSTART = TRUE;
-        ACTIVATION = 1;
-    };
-
     ISR ASCLIN0_TX {
         CATEGORY = 2;
         PRIORITY = 19;
