@@ -23,7 +23,7 @@ CPU test_application {
             CLASS = ECC2;
         };
     };
-  
+
     APPDATA tricore_mc {
         APP_SRC="illd/src/IfxAsclin_Asc.c";
         APP_SRC="illd/src/IfxStm.c";
@@ -59,7 +59,7 @@ CPU test_application {
 
     EVENT Event1 { MASK = AUTO; };
     EVENT Event2 { MASK = AUTO; };
-	
+
     TASK Task1 {
         PRIORITY = 1;
         STACK = SHARED;
@@ -67,7 +67,7 @@ CPU test_application {
         AUTOSTART = FALSE;
         ACTIVATION = 1;
     };
-	
+
     TASK Task2 {
         PRIORITY = 2;
         STACK = PRIVATE {
@@ -126,11 +126,11 @@ CPU test_application {
         HANDLER = "asclin0TxISR";
         SOURCE = "ASCLIN0TX";
     };
-	
+
     ISR TimerISR {
         CATEGORY = 2;
         SOURCE = "STM0SR0";
-        PRIORITY = 2; 
+        PRIORITY = 2;
     };
 
     ISR ButtonISR {

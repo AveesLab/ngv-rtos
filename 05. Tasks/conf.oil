@@ -59,11 +59,11 @@ CPU test_application {
     TASK Task1 {
         PRIORITY = 1;
         STACK = SHARED;
-        SCHEDULE = FULL;	// preemptive
-        AUTOSTART = TRUE;	
-        ACTIVATION = 1;		
+        SCHEDULE = FULL;
+        AUTOSTART = TRUE;
+        ACTIVATION = 1;
     };
-	
+
     TASK Task2 {
         PRIORITY = 2;
         STACK = SHARED;
@@ -78,7 +78,7 @@ CPU test_application {
         HANDLER = "asclin0TxISR";
         SOURCE = "ASCLIN0TX";
     };
-	
+
     ISR TimerISR {
         CATEGORY = 2;
         SOURCE = "STM0SR0";

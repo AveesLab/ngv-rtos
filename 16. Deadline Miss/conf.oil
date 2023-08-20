@@ -30,8 +30,7 @@ CPU test_application {
         ERRORHOOK = TRUE;
         USEGETSERVICEID = TRUE;
         USEPARAMETERACCESS = TRUE;
-  };
-  
+    };
 
     APPDATA tricore_mc {
         APP_SRC="illd/src/IfxAsclin_Asc.c";
@@ -65,7 +64,7 @@ CPU test_application {
         APP_SRC="bsw.c";
         APP_SRC="asw.c";
     };
-  
+
 
     TASK Task1 {
         PRIORITY = 1;
@@ -74,7 +73,7 @@ CPU test_application {
         AUTOSTART = FALSE;
         ACTIVATION = 1;
     };
-	
+
     TASK Task2 {
         PRIORITY = 2;
         STACK = PRIVATE {
@@ -84,13 +83,13 @@ CPU test_application {
         AUTOSTART = FALSE;
         ACTIVATION = 1;
     };
-	
+
     COUNTER mycounter {
         MINCYCLE = 1;
         MAXALLOWEDVALUE = 127;
         TICKSPERBASE = 1;
     };
-    
+
     ALARM alarm1 {
         COUNTER = mycounter;
         ACTION = ACTIVATETASK {
@@ -101,7 +100,7 @@ CPU test_application {
             CYCLETIME = 10;
         };
     };
-    
+
     ALARM alarm2 {
         COUNTER = mycounter;
         ACTION = ACTIVATETASK {
@@ -112,17 +111,17 @@ CPU test_application {
             CYCLETIME = 20;
         };
     };
-    
+
     ISR ASCLIN0_TX {
         CATEGORY = 2;
         PRIORITY = 19;
-        HANDLER = "asclin0TxISR"; 
+        HANDLER = "asclin0TxISR";
         SOURCE = "ASCLIN0TX";
     };
-	
+
     ISR TimerISR {
         CATEGORY = 2;
-        SOURCE   = "STM0SR0";
-        PRIORITY = 2; 
+        SOURCE = "STM0SR0";
+        PRIORITY = 2;
     };
 };

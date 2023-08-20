@@ -28,7 +28,6 @@ CPU test_application {
         PRETASKHOOK = TRUE;
         POSTTASKHOOK = TRUE;
     };
-  
 
     APPDATA tricore_mc {
         APP_SRC="illd/src/IfxAsclin_Asc.c";
@@ -74,7 +73,7 @@ CPU test_application {
     TASK Task2 {
         PRIORITY = 2;
         STACK = PRIVATE {
-	        SIZE = 1024;
+            SIZE = 1024;
         };
         SCHEDULE = FULL;
         AUTOSTART = FALSE;

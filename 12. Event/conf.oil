@@ -23,7 +23,7 @@ CPU test_application {
             CLASS = ECC2;
         };
     };
-  
+
     APPDATA tricore_mc {
         APP_SRC="illd/src/IfxAsclin_Asc.c";
         APP_SRC="illd/src/IfxStm.c";
@@ -67,7 +67,7 @@ CPU test_application {
         AUTOSTART = FALSE;
         ACTIVATION = 1;
     };
-	
+
     TASK Task2 {
         PRIORITY = 2;
         STACK = PRIVATE {
@@ -79,13 +79,13 @@ CPU test_application {
         EVENT = Event1;
         EVENT = Event2;
     };
-	
+
     COUNTER mycounter {
         MINCYCLE = 1;
         MAXALLOWEDVALUE = 127;
         TICKSPERBASE = 1;
     };
-    
+
     ALARM alarm1 {
         COUNTER = mycounter;
         ACTION = ACTIVATETASK {

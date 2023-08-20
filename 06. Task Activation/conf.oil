@@ -63,7 +63,7 @@ CPU test_application {
         AUTOSTART = FALSE;
         ACTIVATION = 1;
     };
-	
+
     TASK Task2 {
         PRIORITY = 2;
         STACK = SHARED;
@@ -78,7 +78,7 @@ CPU test_application {
         HANDLER = "asclin0TxISR";
         SOURCE = "ASCLIN0TX";
     };
-	
+
     ISR TimerISR {
         CATEGORY = 2;
         SOURCE = "STM0SR0";
