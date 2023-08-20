@@ -83,11 +83,11 @@ void mdelay(unsigned long delay_ms)
     unsigned long prev_ms = IfxStm_get(&MODULE_STM0) / (IfxStm_getFrequency(&MODULE_STM0) / ( 1000 /1 )), current_ms = IfxStm_get(&MODULE_STM0) / (IfxStm_getFrequency(&MODULE_STM0) / ( 1000 /1 ));
     unsigned long period_ms = 20, cnt = 0;
     while (cnt < (delay_ms / period_ms)) {
-	    current_ms = IfxStm_get(&MODULE_STM0) / (IfxStm_getFrequency(&MODULE_STM0) / ( 1000 /1 ));
-	    if (current_ms - prev_ms >= period_ms) {
-		    cnt++;
-		    prev_ms = IfxStm_get(&MODULE_STM0) / (IfxStm_getFrequency(&MODULE_STM0) / ( 1000 /1 ));
-	    }
+        current_ms = IfxStm_get(&MODULE_STM0) / (IfxStm_getFrequency(&MODULE_STM0) / ( 1000 /1 ));
+        if (current_ms - prev_ms >= period_ms) {
+            cnt++;
+            prev_ms = IfxStm_get(&MODULE_STM0) / (IfxStm_getFrequency(&MODULE_STM0) / ( 1000 /1 ));
+        }
     }
 }
 
@@ -222,7 +222,7 @@ int main(void)
     osEE_tc_stm_set_clockpersec();
     osEE_tc_stm_set_sr0( 1000000U , 1U ) ;
 
-	UART_init();
+    UART_init();
     initADC();
     initPeripheralsAndERU();
 
