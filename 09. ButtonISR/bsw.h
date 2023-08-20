@@ -1,4 +1,3 @@
-
 #ifndef BSW_H_
 #define BSW_H_
 
@@ -16,4 +15,3 @@ void initPeripheralsAndERU(void);
 void initADC(void);                         /* Function to initialize the VADC module                               */
 uint16 readADCValue(uint8 channel);         /* Function to read the VADC measurement */
 #endif /* BSW_H_ */
-
