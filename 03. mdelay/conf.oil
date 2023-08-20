@@ -70,7 +70,7 @@ CPU test_application {
         HANDLER = "asclin0TxISR";
         SOURCE = "ASCLIN0TX";
     };
-	
+
     ISR TimerISR {
         CATEGORY = 2;
         SOURCE = "STM0SR0";
