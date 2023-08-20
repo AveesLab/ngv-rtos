@@ -79,13 +79,13 @@ CPU test_application {
         EVENT = Event1;
         EVENT = Event2;
     };
-	
+
     COUNTER mycounter {
         MINCYCLE = 1;
         MAXALLOWEDVALUE = 127;
         TICKSPERBASE = 1;
     };
-    
+
     ALARM alarm1 {
         COUNTER = mycounter;
         ACTION = ACTIVATETASK {
@@ -96,7 +96,7 @@ CPU test_application {
             CYCLETIME = 10;
         };
     };
-    
+
     ALARM alarm2 {
         COUNTER = mycounter;
         ACTION = ACTIVATETASK {
@@ -119,17 +119,17 @@ CPU test_application {
             CYCLETIME = 20;
         };
     };
-    
+
     ISR ASCLIN0_TX {
         CATEGORY = 2;
         PRIORITY = 19;
-        HANDLER = "asclin0TxISR"; 
+        HANDLER = "asclin0TxISR";
         SOURCE = "ASCLIN0TX";
     };
 	
     ISR TimerISR {
         CATEGORY = 2;
-        SOURCE   = "STM0SR0";
+        SOURCE = "STM0SR0";
         PRIORITY = 2; 
     };
 

@@ -61,7 +61,7 @@ CPU test_application {
         STACK = SHARED;
         SCHEDULE = FULL;
         AUTOSTART = FALSE;
-        ACTIVATION = 1;		
+        ACTIVATION = 1;
     };
 	
     TASK Task2 {
@@ -69,19 +69,19 @@ CPU test_application {
         STACK = SHARED;
         SCHEDULE = FULL;
         AUTOSTART = FALSE;
-        ACTIVATION = 1;		
+        ACTIVATION = 1;
     };
 
     ISR ASCLIN0_TX {
         CATEGORY = 2;
         PRIORITY = 19;
-        HANDLER = "asclin0TxISR"; 
+        HANDLER = "asclin0TxISR";
         SOURCE = "ASCLIN0TX";
     };
 	
     ISR TimerISR {
         CATEGORY = 2;
-        SOURCE   = "STM0SR0";
-        PRIORITY = 2; 
-    };  
+        SOURCE = "STM0SR0";
+        PRIORITY = 2;
+    };
 };

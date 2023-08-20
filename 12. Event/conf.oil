@@ -96,7 +96,7 @@ CPU test_application {
             CYCLETIME = 10;
         };
     };
-    
+
     ALARM alarm2 {
         COUNTER = mycounter;
         ACTION = ACTIVATETASK {
@@ -122,16 +122,16 @@ CPU test_application {
     ISR ASCLIN0_TX {
         CATEGORY = 2;
         PRIORITY = 19;
-        HANDLER = "asclin0TxISR"; 
+        HANDLER = "asclin0TxISR";
         SOURCE = "ASCLIN0TX";
     };
-	
+
     ISR TimerISR {
         CATEGORY = 2;
-        SOURCE   = "STM0SR0";
-        PRIORITY = 2; 
+        SOURCE = "STM0SR0";
+        PRIORITY = 2;
     };
-    
+
     ISR ButtonISR {
         CATEGORY = 2;
         SOURCE = "SCUERU0";
