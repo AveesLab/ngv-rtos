@@ -35,5 +35,3 @@ TASK(Task2)
     i++;
     TerminateTask();
 }
-
-
