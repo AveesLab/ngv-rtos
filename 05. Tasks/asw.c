@@ -2,8 +2,8 @@
 
 ISR2(TimerISR)
 {
-    osEE_tc_stm_set_sr0_next_match( 1000000U );
     static long c = 0;
+    osEE_tc_stm_set_sr0_next_match(1000000U);
     printfSerial("\n%4ld: ", c++);
 }
 

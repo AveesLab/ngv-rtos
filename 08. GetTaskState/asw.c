@@ -23,8 +23,8 @@ void printState(TaskType id)
 
 ISR2(TimerISR)
 {
-    osEE_tc_stm_set_sr0_next_match( 1000000U );
     static long c = -4;
+    osEE_tc_stm_set_sr0_next_match(1000000U);
     if (c == 0)
         ActivateTask(Task1);
     printfSerial("\n%4ld: ", c++);
