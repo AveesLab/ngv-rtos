@@ -56,4 +56,3 @@ TASK(Task2)
     printfSerial("Task2 Finishes...");
     TerminateTask();
 }
-
