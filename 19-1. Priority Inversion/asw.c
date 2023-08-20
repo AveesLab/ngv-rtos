@@ -63,6 +63,3 @@ TASK(TaskL)
     printfSerial("<TaskL ends.> ");	//19.5s
     TerminateTask();
 }
-
-
-
