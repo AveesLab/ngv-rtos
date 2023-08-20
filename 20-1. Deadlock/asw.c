@@ -18,8 +18,6 @@ ISR2(TimerISR)
     }
 }
 
-
-
 TASK(TaskH)
 {
     printfSerial("<TaskH begins.> ");
@@ -80,6 +78,3 @@ TASK(TaskL)
     printfSerial("<TaskL ends.> ");	//19.5s
     TerminateTask();
 }
-
-
-

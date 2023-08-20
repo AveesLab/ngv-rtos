@@ -11,9 +11,7 @@ typedef struct _MutexType {
 } MutexType;
 
 void InitMutex(MutexType *mutex, EventMaskType event);
-
 void GetMutex(MutexType *mutex);
-
 void ReleaseMutex(MutexType *mutex);
 
 #endif /* MUTEX_H_ */

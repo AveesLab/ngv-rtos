@@ -1,4 +1,3 @@
-
 #ifndef BSW_H_
 #define BSW_H_
 
