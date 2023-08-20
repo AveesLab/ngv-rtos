@@ -118,6 +118,3 @@ TASK(Task_8s)
     printfSerial("Task_8s finishes... ");
     TerminateTask();
 }
-
-
-
