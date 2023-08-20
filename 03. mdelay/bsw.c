@@ -219,6 +219,9 @@ ISR(asclin0TxISR)
 
 int main(void)
 {
+    osEE_tc_stm_set_clockpersec();
+    osEE_tc_stm_set_sr0( 1000000U , 1U ) ;
+
     UART_init();
 
     printfSerial("\n...............\n");
