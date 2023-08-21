@@ -72,6 +72,13 @@ CPU test_application {
         ACTIVATION = 1;
     };
 
+    TASK TaskM {
+        PRIORITY = 3;
+        STACK = SHARED;
+        SCHEDULE = FULL;
+        AUTOSTART = FALSE;
+        ACTIVATION = 1;
+
     COUNTER mycounter {
         MINCYCLE = 1;
         MAXALLOWEDVALUE = 127;

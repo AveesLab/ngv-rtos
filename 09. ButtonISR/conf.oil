@@ -71,7 +71,7 @@ CPU test_application {
         AUTOSTART = FALSE;
         ACTIVATION = 1;
     };
-	
+
     TASK TaskM {
         PRIORITY = 3;
         STACK = SHARED;

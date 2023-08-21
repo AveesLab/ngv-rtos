@@ -23,10 +23,10 @@ CPU test_application {
             CLASS = ECC2;
         };
 
-        STARTUPHOOK = TRUE;
-        SHUTDOWNHOOK = TRUE;
-        PRETASKHOOK = TRUE;
-        POSTTASKHOOK = TRUE;
+        STARTUPHOOK = FALSE;
+        SHUTDOWNHOOK = FALSE;
+        PRETASKHOOK = FALSE;
+        POSTTASKHOOK = FALSE;
         ERRORHOOK = TRUE;
         USEGETSERVICEID = TRUE;
         USEPARAMETERACCESS = TRUE;
@@ -65,6 +65,9 @@ CPU test_application {
         APP_SRC="asw.c";
     };
 
+    EVENT Event1 { MASK = AUTO; };
+    EVENT Event2 { MASK = AUTO; };
+
     TASK Task1 {
         PRIORITY = 1;
         STACK = SHARED;
@@ -81,7 +84,16 @@ CPU test_application {
         SCHEDULE = FULL;
         AUTOSTART = FALSE;
         ACTIVATION = 1;
+        EVENT = Event1;
+        EVENT = Event2;
     };
+
+    TASK TaskM {
+        PRIORITY = 3;
+        STACK = SHARED;
+        SCHEDULE = FULL;
+        AUTOSTART = FALSE;
+        ACTIVATION = 1;
 
     COUNTER mycounter {
         MINCYCLE = 1;
@@ -111,6 +123,18 @@ CPU test_application {
         };
     };
 
+    ALARM alarm3 {
+        COUNTER = mycounter;
+        ACTION = SETEVENT {
+            TASK = Task2;
+            EVENT = Event1;
+        };
+        AUTOSTART = TRUE {
+            ALARMTIME = 7;
+            CYCLETIME = 20;
+        };
+    };
+
     ISR ASCLIN0_TX {
         CATEGORY = 2;
         PRIORITY = 19;
@@ -122,5 +146,11 @@ CPU test_application {
         CATEGORY = 2;
         SOURCE = "STM0SR0";
         PRIORITY = 2;
+    };
+
+    ISR ButtonISR {
+        CATEGORY = 2;
+        SOURCE = "SCUERU0";
+        PRIORITY = 10;
     };
 };
