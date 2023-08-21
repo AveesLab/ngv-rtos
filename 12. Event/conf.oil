@@ -71,7 +71,7 @@ CPU test_application {
     TASK Task2 {
         PRIORITY = 2;
         STACK = PRIVATE {
-            SIZE = 512;
+            SIZE = 1024;
         };
         SCHEDULE = FULL;
         AUTOSTART = FALSE;
