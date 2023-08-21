@@ -59,7 +59,7 @@ CPU test_application {
 
     EVENT Event1 { MASK = AUTO; };
     EVENT Event2 { MASK = AUTO; };
-	
+
     TASK Task1 {
         PRIORITY = 1;
         STACK = SHARED;
