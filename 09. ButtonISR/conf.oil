@@ -61,7 +61,7 @@ CPU test_application {
         STACK = SHARED;
         SCHEDULE = FULL;
         AUTOSTART = FALSE;
-        ACTIVATION = 3;
+        ACTIVATION = 1;
     };
 
     TASK Task2 {
