@@ -78,6 +78,7 @@ CPU test_application {
         SCHEDULE = FULL;
         AUTOSTART = FALSE;
         ACTIVATION = 1;
+    };
 
     COUNTER mycounter {
         MINCYCLE = 1;
