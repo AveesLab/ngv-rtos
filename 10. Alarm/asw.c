@@ -10,21 +10,24 @@ ISR2(TimerISR)
 
 ISR2(ButtonISR)
 {
+    unsigned int a0;
     DisableAllInterrupts();
     osEE_tc_delay(5000);
-    printfSerial("<BUTTON ISR>");
-    unsigned int a0 = readADCValue(3); // read ADC value
+    a0 = readADCValue(3);
     if (a0 < 500) {
+        printfSerial("<BUTTON:T>");
         ActivateTask(Task1);
     } else if (a0 < 1200) {
+        printfSerial("<BUTTON:D>");
         ActivateTask(Task2);
     } else if (a0 < 1600) {
-        ActivateTask(Task1);
+        printfSerial("<BUTTON:L>");
     } else if (a0 < 2200) {
-        ActivateTask(Task1);
+        printfSerial("<BUTTON:R>");
+    } else {
+        printfSerial("<BUTTON:?>");
     }
     osEE_tc_delay(3000);
-
     EnableAllInterrupts();
 }
 
