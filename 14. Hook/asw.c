@@ -100,3 +100,11 @@ TASK(Task2)
     printfSerial("Task2 Finishes...");
     TerminateTask();
 }
+
+TASK(TaskM)
+{
+    printState(Task1);
+    printState(Task2);
+
+    TerminateTask();
+}
