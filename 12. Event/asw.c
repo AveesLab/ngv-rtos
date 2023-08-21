@@ -60,7 +60,6 @@ TASK(Task2)
         printfSerial("[Event2]");
         ClearEvent(Event2);
     }
-
     printfSerial("Task2 Finishes...");
     TerminateTask();
 }

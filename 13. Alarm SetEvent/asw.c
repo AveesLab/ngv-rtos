@@ -2,8 +2,8 @@
 
 ISR2(TimerISR)
 {
-    osEE_tc_stm_set_sr0_next_match( 1000000U );
     static long c = -4;
+    osEE_tc_stm_set_sr0_next_match(1000000U);
     IncrementCounter(mycounter);
     printfSerial("\n%4ld: ", c++);
 }
@@ -42,7 +42,7 @@ TASK(Task2)
     EventMaskType mask;
     printfSerial("Task2 Begins...");
     printfSerial("Task2 Waits...");
-    WaitEvent(Event1 | Event2 );
+    WaitEvent(Event1 | Event2);
     printfSerial("Task2 Wakes Up...");
     GetEvent(Task2, &mask);
     if (mask & Event1) {
