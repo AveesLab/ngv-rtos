@@ -3,7 +3,7 @@ volatile unsigned long shared = 0;
 
 ISR2(TimerISR)
 {
-    osEE_tc_stm_set_sr0_next_match( 1000U );
+    osEE_tc_stm_set_sr0_next_match(1000U);
     IncrementCounter(mycounter);
 }
 
@@ -14,7 +14,7 @@ TASK(Task1)
     for (i = 0; i < 100000000; i++) {
         shared++;
     }
-    printfSerial("Added 1000000 to shared\n");
+    printfSerial("Added 100000000 to shared\n");
     printfSerial("counter = %lu\n", shared);
     printfSerial("Task1 Finishes...\n");
     TerminateTask();
