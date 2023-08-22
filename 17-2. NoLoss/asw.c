@@ -30,7 +30,7 @@ TASK(Task2)
         shared++;
         ReleaseResource(S1);
     } else if (i == 500) {
-        printfSerial("Added 1000 to shared\n");
+        printfSerial("Added 500 to shared\n");
     }
     i++;
     TerminateTask();
