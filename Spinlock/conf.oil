@@ -84,7 +84,8 @@ CPU test_application {
         PRIORITY = 5; 
         ACTIVATION = 1;
         AUTOSTART = FALSE;
-        SCHEDULE = FULL; STACK = SHARED;
+        SCHEDULE = FULL; 
+        STACK = SHARED;
     };
 
     COUNTER myCounter;
