@@ -8,11 +8,11 @@ ISR2(TimerISR)
     IncrementCounter(myCounter);
 }
 
-TASK(TaskCPU0)
+TASK(Task0)
 {
-    printfSerial("TaskCPU0 Begins...");
+    printfSerial("Task0 Begins...");
     mdelay(5000);
-    printfSerial("TaskCPU0 Finishes...");
+    printfSerial("Task0 Finishes...");
     TerminateTask();
 }
 

@@ -70,7 +70,7 @@ CPU test_application {
 
     SPINLOCK S1 {};
 
-    TASK TaskCPU0 {
+    TASK Task0 {
         CPU_ID = 0x0;
         PRIORITY = 1;
     };
@@ -81,10 +81,10 @@ CPU test_application {
         TICKSPERBASE = 1;    
     };
 
-    ALARM AlarmCPU0 {
+    ALARM Alarm0 {
         COUNTER = myCounter;
         ACTION = ACTIVATETASK { 
-            TASK = TaskCPU0; 
+            TASK = Task0; 
         };
         AUTOSTART = TRUE { 
             ALARMTIME = 5; 
