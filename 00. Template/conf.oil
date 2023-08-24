@@ -10,7 +10,6 @@ CPU test_application {
 	
         CPU_DATA = TRICORE {
             ID = 0x0;
-            CPU_CLOCK = 200.0;
         };
 
         MCU_DATA = TC27X {
