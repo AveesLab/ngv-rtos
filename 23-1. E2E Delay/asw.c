@@ -83,6 +83,6 @@ TASK(Task_8s)
     Runnable_1();
     Runnable_2();
     Runnable_3();
-    printfSerial("Task_4s finishes... ");
+    printfSerial("Task_8s finishes... ");
     TerminateTask();
 }
