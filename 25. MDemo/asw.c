@@ -13,7 +13,7 @@ ISR2(TimerISR)
 TASK(Task0)
 {
     printfSerial("Task0 Begins...");
-    mdelay(5000);
+    mdelay(3000);
     ActivateTask(Task1);
     ActivateTask(Task2);    
     printfSerial("Task0 Finishes...");
