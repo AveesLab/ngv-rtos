@@ -81,7 +81,7 @@ CPU test_application {
         TICKSPERBASE = 1;    
     };
 
-    ALARM Alarm0 {
+    ALARM alarm0 {
         COUNTER = myCounter;
         ACTION = ACTIVATETASK { 
             TASK = Task0; 
