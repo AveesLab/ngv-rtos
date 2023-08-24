@@ -59,7 +59,7 @@ TASK(Task2)
     mdelay(1000);
 
     printfSerial("Task2 : Release Lock(S2). ");
-    ReleaseSpinlock(S1);   
+    ReleaseSpinlock(S2);   
     mdelay(2000);
 
     printfSerial("Task2 ends.");

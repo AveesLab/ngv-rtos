@@ -7,7 +7,7 @@ ISR2(TimerISR)
     printfSerial("\n%4ld: ", ++c);
     if (c == 0) {
         ActivateTask(Task1L);
-    } else if (c == 1) {
+    } else if (c == 2) {
         ActivateTask(Task1H);
     }
 }

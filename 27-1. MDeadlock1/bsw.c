@@ -224,7 +224,7 @@ int main(void)
     CoreIdType core_id = GetCoreID();
     if (core_id == OS_CORE_ID_MASTER) {
         osEE_tc_stm_set_clockpersec();
-        osEE_tc_stm_set_sr0(1000U, 1U);
+        osEE_tc_stm_set_sr0(1000000U, 1U);
         UART_init();
         initADC();
         initPeripheralsAndERU();
