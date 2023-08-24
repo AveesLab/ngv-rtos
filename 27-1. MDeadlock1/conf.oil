@@ -2,12 +2,11 @@ CPU test_application {
 
     OS EE {
         EE_OPT = "OSEE_DEBUG";
-        EE_OPT = "OSEE_ASSERT";
         EE_OPT = "OS_EE_APPL_BUILD_DEBUG";
         EE_OPT = "OS_EE_BUILD_DEBUG";
         EE_OPT = "EE_BUILD_SINGLE_ELF";
         CFLAGS = "-Wno-switch -Wno-implicit-function-declaration -Wno-cast-align -Wno-missing-prototypes  -Wno-missing-field-initializers -Wno-double-promotion -Wno-strict-prototypes -Wno-unused-parameter -Wno-missing-declarations";
-
+	
         CPU_DATA = TRICORE {
             ID = 0x0;
         };
@@ -28,7 +27,7 @@ CPU test_application {
         KERNEL_TYPE = OSEK {
             CLASS = ECC2;
         };
-        
+
         USERESSCHEDULER = FALSE;
     };
 
@@ -67,43 +66,45 @@ CPU test_application {
 
     SPINLOCK _0 {};
 
-    TASK Task0 {
+    SPINLOCK S1 {};
+
+    TASK Task1H{ 
         CPU_ID = 0x1;
-        PRIORITY = 1;
-        STACK = SHARED;
-        SCHEDULE = FULL;
+        PRIORITY = 2; 
+        ACTIVATION = 1;
         AUTOSTART = FALSE;
-        ACTIVATION = 1;       
+        SCHEDULE = FULL; 
+        STACK = SHARED;
     };
 
-    TASK Task1 {
+    TASK Task1L {
         CPU_ID = 0x1;
-        PRIORITY = 1;
-        STACK = SHARED;
-        SCHEDULE = FULL;
-        AUTOSTART = FALSE;
+        PRIORITY = 1; 
         ACTIVATION = 1;
-    };
+        AUTOSTART = FALSE;
+        SCHEDULE = FULL; 
+        STACK = SHARED;
+    }; 
 
     TASK Task2 {
         CPU_ID = 0x2;
-        PRIORITY = 1;
-        STACK = SHARED;
-        SCHEDULE = FULL;
-        AUTOSTART = FALSE;
+        PRIORITY = 1; 
         ACTIVATION = 1;
-    };    
-      
-    ISR TimerISR {
-        CATEGORY = 2;
-        SOURCE   = "STM0SR0";
-        PRIORITY = 2; 
-    };
-    
+        AUTOSTART = FALSE;
+        SCHEDULE = FULL; 
+        STACK = SHARED;
+    };     
+
     ISR ASCLIN0_TX {
         CATEGORY = 2;
         PRIORITY = 19;
         HANDLER = "asclin0TxISR"; 
         SOURCE = "ASCLIN0TX";
+    };
+	 
+    ISR TimerISR {
+        CATEGORY = 2;
+        SOURCE   = "STM0SR0";
+        PRIORITY = 20; 
     };
 };

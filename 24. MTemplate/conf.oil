@@ -20,8 +20,8 @@ CPU test_application {
         KERNEL_TYPE = OSEK {
             CLASS = ECC2;
         };
+
         USERESSCHEDULER = FALSE;
-        USEORTI = TRUE;
     };
 
     APPDATA tricore_mc {
@@ -57,36 +57,7 @@ CPU test_application {
         APP_SRC="asw.c";
     };
 
-    SPINLOCK S1 {};
-
-    TASK Task0 {
-        CPU_ID = 0x0;
-        PRIORITY = 1;
-    };
-
-    COUNTER myCounter {
-        MINCYCLE = 1;
-        MAXALLOWEDVALUE = 65535;
-        TICKSPERBASE = 1;    
-    };
-
-    ALARM alarm0 {
-        COUNTER = myCounter;
-        ACTION = ACTIVATETASK { 
-            TASK = Task0; 
-        };
-        AUTOSTART = TRUE { 
-            ALARMTIME = 5; 
-            CYCLETIME = 5; 
-        };
-    };
-
-  
-    ISR TimerISR {
-        CATEGORY = 2;
-        SOURCE   = "STM0SR0";
-        PRIORITY = 2; 
-    };
+    SPINLOCK _0 {};
     
     ISR ASCLIN0_TX {
         CATEGORY = 2;

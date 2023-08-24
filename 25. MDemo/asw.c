@@ -7,7 +7,6 @@ ISR2(TimerISR)
     if (c == 0)
         ActivateTask(Task0);
     printfSerial("\n%4ld: ", c++);
-    IncrementCounter(myCounter);
 }
 
 TASK(Task0)

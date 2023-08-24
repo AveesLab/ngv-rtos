@@ -28,8 +28,8 @@ CPU test_application {
         KERNEL_TYPE = OSEK {
             CLASS = ECC2;
         };
+        
         USERESSCHEDULER = FALSE;
-        USEORTI = TRUE;
     };
 
     APPDATA tricore_mc {
@@ -65,12 +65,13 @@ CPU test_application {
         APP_SRC="asw.c";
     };
 
+    SPINLOCK _0 {};
+
     SPINLOCK S1 {};
-    SPINLOCK S2 {};
 
     TASK Task1 {
         CPU_ID = 0x1;
-        PRIORITY = 4;
+        PRIORITY = 1;
         STACK = SHARED;
         SCHEDULE = FULL;
         AUTOSTART = TRUE;
@@ -79,7 +80,7 @@ CPU test_application {
 
     TASK Task2 {
         CPU_ID = 0x2;
-        PRIORITY = 5;
+        PRIORITY = 1;
         STACK = SHARED;
         SCHEDULE = FULL;
         AUTOSTART = TRUE;

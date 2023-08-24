@@ -61,8 +61,7 @@ void UART_init(void)
 
 void printfSerial(const char *fmt,...)
 {
-    GetSpinlock(S1);
-//    EnableAllInterrupts();
+    GetSpinlock(_0);
     char buf[LEN_BUF];
     va_list args;
     va_start (args, fmt );
@@ -77,7 +76,7 @@ void printfSerial(const char *fmt,...)
     }
     /* Transmit data */
     IfxAsclin_Asc_write(&g_AsclinAsc.drivers.asc, txData, &g_AsclinAsc.count, TIME_INFINITE);
-    ReleaseSpinlock(S1);
+    ReleaseSpinlock(_0);
 }
 
 void mdelay(unsigned long delay_ms)
