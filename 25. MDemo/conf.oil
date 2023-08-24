@@ -10,17 +10,14 @@ CPU test_application {
 
         CPU_DATA = TRICORE {
             ID = 0x0;
-            MULTI_STACK = TRUE;
         };
 
         CPU_DATA = TRICORE {
             ID = 0x1;
-            MULTI_STACK = TRUE;
         };
 
         CPU_DATA = TRICORE {
             ID = 0x2;
-            MULTI_STACK = TRUE;
         };
 
         MCU_DATA = TC27X {
@@ -98,17 +95,6 @@ CPU test_application {
         MINCYCLE = 1;
         MAXALLOWEDVALUE = 65535;
         TICKSPERBASE = 1;    
-    };
-
-    ALARM alarm0 {
-        COUNTER = myCounter;
-        ACTION = ACTIVATETASK { 
-            TASK = Task0; 
-        };
-        AUTOSTART = TRUE { 
-            ALARMTIME = 5; 
-            CYCLETIME = 5; 
-        };
     };
       
     ISR TimerISR {
