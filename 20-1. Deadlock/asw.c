@@ -14,7 +14,7 @@ ISR2(TimerISR)
     } else if (c == 4) {
         ActivateTask(TaskL);
     } else if (c == 6) {
-    ActivateTask(TaskH);
+        ActivateTask(TaskH);
     }
 }
 
