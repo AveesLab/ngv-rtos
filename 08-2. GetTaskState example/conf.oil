@@ -1,0 +1,104 @@
+CPU test_application {
+
+    OS EE {
+        EE_OPT = "OSEE_DEBUG";
+        EE_OPT = "OSEE_ASSERT";
+        EE_OPT = "OS_EE_APPL_BUILD_DEBUG";
+        EE_OPT = "OS_EE_BUILD_DEBUG";
+        EE_OPT = "EE_BUILD_SINGLE_ELF";    
+        CFLAGS = "-Wno-implicit-function-declaration -Wno-cast-align -Wno-missing-prototypes  -Wno-missing-field-initializers -Wno-double-promotion -Wno-strict-prototypes -Wno-unused-parameter -Wno-missing-declarations";
+	
+        CPU_DATA = TRICORE {
+            ID = 0x0;
+            CPU_CLOCK = 200.0;
+        };
+
+        MCU_DATA = TC27X {
+            DERIVATIVE = "tc275tf";
+            REVISION = "DC";
+        };
+
+        KERNEL_TYPE = OSEK {
+            CLASS = ECC2;
+        };
+    };
+
+    APPDATA tricore_mc {
+        APP_SRC="illd/src/IfxAsclin_Asc.c";
+        APP_SRC="illd/src/IfxStm.c";
+        APP_SRC="illd/src/IfxStm_cfg.c";
+        APP_SRC="illd/src/IfxStdIf_DPipe.c";
+        APP_SRC="illd/src/Ifx_Fifo.c";
+        APP_SRC="illd/src/Ifx_CircularBuffer.c";
+        APP_SRC="illd/src/IfxAsclin_PinMap.c";
+        APP_SRC="illd/src/IfxScuWdt.c";
+        APP_SRC="illd/src/IfxAsclin_cfg.c";
+        APP_SRC="illd/src/IfxScu_cfg.c";
+        APP_SRC="illd/src/Bsp.c";
+        APP_SRC="illd/src/IfxScuCcu.c";
+        APP_SRC="illd/src/IfxScu_PinMap.c";
+        APP_SRC="illd/src/IfxPort.c";
+        APP_SRC="illd/src/IfxSrc.c";
+        APP_SRC="illd/src/IfxSrc_cfg.c";
+        APP_SRC="illd/src/IfxAsclin.c";
+        APP_SRC="illd/src/IfxPort_cfg.c";
+        APP_SRC="illd/src/CompilerGnuc.c";
+        APP_SRC="illd/src/IfxCpu_Irq.c";
+        APP_SRC="illd/src/IfxCpu.c";
+        APP_SRC="illd/src/IfxAsclin.c";
+        APP_SRC="illd/src/IfxCpu_cfg.c";
+        APP_SRC="illd/src/IfxScuEru.c";
+        APP_SRC="illd/src/IfxVadc_Adc.c";
+        APP_SRC="illd/Libraries/iLLD/TC27D/Tricore/_Impl/IfxVadc_cfg.c";
+        APP_SRC="illd/Libraries/iLLD/TC27D/Tricore/Vadc/std/IfxVadc.c";
+
+        APP_SRC="bsw.c";
+        APP_SRC="asw.c";
+    };
+
+    TASK Task1 {
+        PRIORITY = 1;
+        STACK = SHARED;
+        SCHEDULE = FULL;
+        AUTOSTART = FALSE;
+        ACTIVATION = 1;
+    };
+
+    TASK Task2 {
+        PRIORITY = 2;
+        STACK = SHARED;
+        SCHEDULE = FULL;
+        AUTOSTART = FALSE;
+        ACTIVATION = 1;
+    };
+
+
+    TASK Task3 {
+        PRIORITY = 3;
+        STACK = SHARED;
+        SCHEDULE = FULL;
+        AUTOSTART = FALSE;
+        ACTIVATION = 1;
+    };
+
+    TASK TaskM {
+        PRIORITY = 3;
+        STACK = SHARED;
+        SCHEDULE = FULL;
+        AUTOSTART = FALSE;
+        ACTIVATION = 1;
+    };
+
+    ISR ASCLIN0_TX {
+        CATEGORY = 2;
+        PRIORITY = 19;
+        HANDLER = "asclin0TxISR";
+        SOURCE = "ASCLIN0TX";
+    };
+
+    ISR TimerISR {
+        CATEGORY = 2;
+        SOURCE = "STM0SR0";
+        PRIORITY = 2;
+    };
+};
