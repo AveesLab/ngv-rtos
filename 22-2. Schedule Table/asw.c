@@ -11,23 +11,17 @@ ISR2(TimerISR)
 TASK(TaskH)
 {
     printfSerial("<TaskH begins.> ");
-    mdelay(2500);
-    printfSerial("<TaskH ends.> ");
-    TerminateTask();
-}
-
-TASK(TaskM)
-{
-    printfSerial("<TaskM begins.> ");
     mdelay(2000);
-    printfSerial("<TaskM ends.> ");
+    printfSerial("<TaskH ends.> ");
     TerminateTask();
 }
 
 TASK(TaskL)
 {
     printfSerial("<TaskL begins.> ");
-    mdelay(500);
+
+    mdelay(2000);
+
     printfSerial("<TaskL ends.> ");
     TerminateTask();
 }

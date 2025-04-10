@@ -56,6 +56,8 @@ CPU test_application {
         APP_SRC="bsw.c";
         APP_SRC="asw.c";
     };
+
+    EVENT Event1 { MASK = AUTO; };
     
     TASK TaskH {
         PRIORITY = 3;       
@@ -65,18 +67,9 @@ CPU test_application {
         SCHEDULE = FULL;
         AUTOSTART = FALSE;
         ACTIVATION = 1;
+        EVENT = Event1;
     };
-    
-    TASK TaskM {
-        PRIORITY = 2;       
-        STACK = PRIVATE {
-            SIZE = 1024;
-        };
-        SCHEDULE = FULL;
-        AUTOSTART = FALSE;
-        ACTIVATION = 1;
-    };
-        
+            
     TASK TaskL {
         PRIORITY = 1;       
         STACK = PRIVATE {
@@ -95,7 +88,7 @@ CPU test_application {
     
     SCHEDULETABLE SchedTab1 {
         COUNTER = mycounter;
-        DURATION = 30;
+        DURATION = 10;
         REPEATING = TRUE;
         AUTOSTART = TRUE {
             START_VALUE = 5;
@@ -103,31 +96,11 @@ CPU test_application {
         EXPIRE_POINT = ACTION {
             EXPIRE_VALUE = 0;
             ACTION = ACTIVATETASK { TASK = TaskH; };
-            ACTION = ACTIVATETASK { TASK = TaskM; };
             ACTION = ACTIVATETASK { TASK = TaskL; };
         };
         EXPIRE_POINT = ACTION {
             EXPIRE_VALUE = 5;
             ACTION = ACTIVATETASK { TASK = TaskH; };
-        };
-        EXPIRE_POINT = ACTION {
-            EXPIRE_VALUE = 10;      
-            ACTION = ACTIVATETASK { TASK = TaskH; };
-            ACTION = ACTIVATETASK { TASK = TaskM; };
-        };
-        EXPIRE_POINT = ACTION {
-            EXPIRE_VALUE = 15;
-            ACTION = ACTIVATETASK { TASK = TaskH; };
-            ACTION = ACTIVATETASK { TASK = TaskL; };    
-        };
-        EXPIRE_POINT = ACTION {
-            EXPIRE_VALUE = 20;
-            ACTION = ACTIVATETASK { TASK = TaskH; };    
-            ACTION = ACTIVATETASK { TASK = TaskM; };    
-        };
-        EXPIRE_POINT = ACTION {
-            EXPIRE_VALUE = 25;
-            ACTION = ACTIVATETASK { TASK = TaskH; };    
         };
     };
    
