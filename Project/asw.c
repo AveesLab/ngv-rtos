@@ -1,7 +1,7 @@
 #include "bsw.h"
 #define LIDAR_CHANNEL 0  // ADC 채널 0에 가변저항 연결됐다고 가정
 #define CAMERA_CHANNEL 3 // Button ISR
-#define DIST_THRESHOLD 200
+#define DIST_THRESHOLD 2000
 EventMaskType mask;
 volatile unsigned int avoid_front_count = 0;
 volatile unsigned int avoid_left_count = 0;
@@ -15,7 +15,7 @@ ISR2(TimerISR)
     // if (c == 0)
     //     ActivateTask(Task1);
     printfSerial("\n%4ld: ", c++);
-    // LoggerTask를 Timer로 주기적으로 Activate
+    // LoggerTask를 Timer로 주기적으로  (Alarm도 가능)
     if (c % 5 == 0) {
         ActivateTask(LoggerTask);
     }
